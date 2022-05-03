@@ -29,14 +29,14 @@ const Home = () => {
     e.preventDefault();
     if (url !== "") {
       setIsLoading(true); // loading now
-      await fetch(`${process.env.REACT_APP_BASEURL}` + url)
+      await fetch(`${process.env.REACT_APP_VERCEL_URL}` + url)
         .then((res) => res.json())
         .then((data) => {
           setResult(data);
           setIsLoading(false);
         })
         .catch((err) => {
-          toast.error("Some error occured " + err, {
+          toast.error("Error occured " + err, {
             position: isMobile ? "top-right" : "bottom-right",
           });
           setIsLoading(false);
