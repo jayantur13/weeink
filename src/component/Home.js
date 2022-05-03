@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./../css/Home.css";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Home = () => {
   document.title = "weeink - link shortener";
@@ -29,18 +30,18 @@ const Home = () => {
     e.preventDefault();
     if (url !== "") {
       setIsLoading(true); // loading now
-      await fetch(`${process.env.REACT_APP_VERCEL_URL}` + url)
-        .then((res) => res.json())
-        .then((data) => {
-          setResult(data);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          toast.error("Error occured " + err, {
-            position: isMobile ? "top-right" : "bottom-right",
-          });
-          setIsLoading(false);
+      axios.get(`${process.env.REACT_APP_VERCEL_URL}` + url)
+      .then((res) => {
+        let data = res.data
+        setIsLoading(false);
+        setResult(data);
+      })
+      .catch((err) => {
+        toast.error("Error occured " + err, {
+          position: isMobile ? "top-right" : "bottom-right",
         });
+        setIsLoading(false);
+      });
     } else {
       toast.info("Please enter url to shorten", {
         position: isMobile ? "top-right" : "bottom-right",
