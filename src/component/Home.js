@@ -30,7 +30,7 @@ const Home = () => {
     e.preventDefault();
     if (url !== "") {
       setIsLoading(true); // loading now
-      axios.get(`${process.env.REACT_APP_VERCEL_URL}` + url)
+      axios.get(process.env.REACT_APP_VERCEL_URL + url)
       .then((res) => {
         let data = res.data
         setIsLoading(false);
